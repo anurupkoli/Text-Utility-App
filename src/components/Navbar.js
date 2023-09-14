@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import { Link } from "react-router-dom";
 
 export default function Navbar(props) {
-  return (
+  return(
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className={`container-fluid bg-${props.mode}`}>
         <a className={`navbar-brand text-${props.fontColor}`} href="/">
@@ -27,7 +27,7 @@ export default function Navbar(props) {
               </a>
             </li>
             <li className="nav-item">
-              <a className={`nav-link active text-${props.fontColor}`} href="/">
+              <a className={`nav-link active text-${props.fontColor}`} href="/about">
                 {props.about}
               </a>
             </li>
@@ -61,12 +61,3 @@ export default function Navbar(props) {
   );
 }
 
-Navbar.propTypes = {
-  title: PropTypes.string.isRequired,
-  about: PropTypes.string.isRequired,
-};
-
-Navbar.defaultProps = {
-  title: "Specify Title",
-  about: "Specify about",
-};

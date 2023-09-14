@@ -1,9 +1,10 @@
 import "./App.css";
 import Alert from "./components/Alert";
-// import About from "./components/About";
+import About from "./components/About";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -13,7 +14,7 @@ function App() {
   const showAlert = (message, type) => {
     setalert({
       message: message,
-      type: type
+      type: type,
     });
     setTimeout(() => {
       setalert(null);
@@ -25,12 +26,12 @@ function App() {
       setMode("dark");
       setfontColor("light");
       document.body.style.backgroundColor = "#252557";
-      showAlert('Dark Mode Enabled', 'success');
+      showAlert("Dark Mode Enabled", "success");
     } else {
       setMode("light");
       setfontColor("dark");
       document.body.style.backgroundColor = "white";
-      showAlert('Light Mode Enabled', 'success');
+      showAlert("Light Mode Enabled", "success");
     }
   };
 
@@ -43,14 +44,23 @@ function App() {
         enableMode={toggleMode}
         fontColor={fontColor}
       />
-      <Alert alert={alert}/>
-      <TextForm
-        heading="Enter Text Here"
-        mode={mode}
-        fontColor={fontColor}
-        showAlert={showAlert}
-      ></TextForm>
-      {/* <About></About> */}
+      <Alert alert={alert} />
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <TextForm
+                heading="Enter Text Here"
+                mode={mode}
+                fontColor={fontColor}
+                showAlert={showAlert}
+              ></TextForm>
+            }
+          />
+          <Route path="about" element={<About></About>} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
