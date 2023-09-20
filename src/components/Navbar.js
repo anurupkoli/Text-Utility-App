@@ -55,7 +55,7 @@ export default function Navbar(props) {
         <label class={`form-check-label text-${props.fontColor} `} for="flexSwitchCheckDefault">
           SwitchMode
         </label>
-      </div>
+      </div>       
       </div>
     </nav>
   );

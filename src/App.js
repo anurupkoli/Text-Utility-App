@@ -58,7 +58,7 @@ function App() {
               ></TextForm>
             }
           />
-          <Route path="about" element={<About></About>} />
+          <Route path="about" element={<About mode={mode}></About>} />
         </Routes>
       </BrowserRouter>
     </>

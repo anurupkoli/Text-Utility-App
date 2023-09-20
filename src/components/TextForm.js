@@ -5,16 +5,26 @@ export default function TextForm(props) {
 
   const changeToUpperCase = () => {
     // console.log("Clicked");
-    let newText = text.toUpperCase();
+    if(text.length < 1){
+      props.showAlert('Nothing to work on','danger');
+    }
+    else{
+      let newText = text.toUpperCase();
     setText(newText);
     props.showAlert('Text Changed to Upper Case', 'success');
+    }
   };
 
   const changeToLowerCase = () => {
     // console.log("Clicked");
-    let newText = text.toLowerCase();
+    if(text.length === 0){
+      props.showAlert('Nothing to work on','danger');
+    }
+    else{
+      let newText = text.toLowerCase();
     setText(newText);
     props.showAlert('Text Changed to Lower Case', 'success');
+    }
   };
 
   const clearText = () => {
@@ -29,16 +39,26 @@ export default function TextForm(props) {
   };
 
   const copy = ()=>{
-    let text = document.getElementById('text');
-    text.select();
-    navigator.clipboard.writeText(text.value);
+    if(text.length === 0){
+      props.showAlert('Nothing to copy','danger');
+    }
+    else{
+      let rText = document.getElementById('text');
+    rText.select();
+    navigator.clipboard.writeText(rText.value);
     props.showAlert('Text Copied To Clip Board', 'success');
+    }
   }
 
   const rmExtraSpaces = ()=>{
-    let newText = text.split(/[ ]+/);
+    if(text.length === 0){
+      props.showAlert('Nothing to work on','danger');
+    }
+    else{
+      let newText = text.split(/[ ]+/);
     setText(newText.join(" "));
     props.showAlert('Extra Spaces have been removed', 'success');
+    }
   }
 
   const [fontSize, setfontSize] = useState(15);
@@ -46,7 +66,10 @@ export default function TextForm(props) {
 
 
   let incFontSize = ()=>{
-    if(fontSize <= 15){
+    if(text.length === 0){
+      props.showAlert('Nothing to work on','danger');
+    }
+    else if(fontSize <= 15){
         setfontSize(35);
         settoggleSizeText('Decrease Text Size')
         props.showAlert('Font Size Increased', 'success');
@@ -70,7 +93,7 @@ export default function TextForm(props) {
             value={text}
             onChange={handleOnChange}
             placeholder="Enter Text Here"
-            style={{fontSize:`${fontSize}px`, backgroundColor:`${props.mode === 'dark'?'grey':'white'}`, color: `${props.mode === 'dark'?'white':'black'}`}}
+            style={{fontSize:`${fontSize}px`, backgroundColor:`${props.mode === 'dark'?'grey':'white'}`, color: `${props.mode === 'dark'?'white':'black'}`, height:`${30}vh`}}
           ></textarea>
         </div>
         <button className="btn btn-primary mx-1" onClick={changeToUpperCase}>
@@ -95,10 +118,10 @@ export default function TextForm(props) {
       <div className="container my-3" style={{color: `${props.mode === 'dark'?'white':'black'}`}}>
         <h1>Text Summary</h1>
         <p className="my-3">
-          Words: {text.split(" ").length} and Characters: {text.length}{" "}
+          Words: {text.split(/\s+/).filter((ele)=>{return ele.length!==0}).length} and Characters: {text.length}
         </p>
         <p className="my-3">
-          {0.008 * text.split(" ").length} minutes to read.
+          {0.008 * text.split(" ").filter((ele)=>{return ele.length!==0}).length} minutes to read.
         </p>
         <h2>Preview</h2>
         <p>{text}</p>
